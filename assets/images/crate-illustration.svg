@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 300" role="img" aria-label="Illustration of an assembled SharkCrate wood shipping crate">
+  <!-- back face -->
+  <polygon points="60,60 260,60 280,90 40,90" fill="#eaf3fa" stroke="#1772B9" stroke-width="2"/>
+  <!-- top face -->
+  <polygon points="60,60 260,60 280,40 80,40" fill="#ffffff" stroke="#1772B9" stroke-width="2"/>
+  <!-- front face -->
+  <rect x="40" y="90" width="240" height="170" fill="#ffffff" stroke="#1772B9" stroke-width="2"/>
+  <!-- plank lines -->
+  <line x1="40" y1="130" x2="280" y2="130" stroke="#c7ddec" stroke-width="2"/>
+  <line x1="40" y1="170" x2="280" y2="170" stroke="#c7ddec" stroke-width="2"/>
+  <line x1="40" y1="210" x2="280" y2="210" stroke="#c7ddec" stroke-width="2"/>
+  <!-- corner brackets -->
+  <path d="M40,90 L40,120 M40,90 L70,90" stroke="#1772B9" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M280,90 L280,120 M280,90 L250,90" stroke="#1772B9" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M40,260 L40,230 M40,260 L70,260" stroke="#1772B9" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M280,260 L280,230 M280,260 L250,260" stroke="#1772B9" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <!-- fin badge -->
+  <g transform="translate(228,150)">
+    <circle cx="0" cy="0" r="34" fill="#1772B9"/>
+    <path d="M8,-16 C16,-6 22,4 24,14 C15,19 4,20 -5,17 L-5,26 L-16,26 C-17,10 -13,-4 -3,-13 C1,-17 5,-18 8,-16 Z" fill="#ffffff"/>
+  </g>
+</svg>

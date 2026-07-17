@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 260" role="img" aria-label="SharkCrates icon">
+  <polygon points="18,70 108,42 108,246 36,222" fill="#1772B9"/>
+  <polygon points="132,42 222,70 198,222 132,246" fill="#1772B9"/>
+  <path d="M175,90 C205,120 225,150 232,175 C215,190 190,195 168,190 L168,246 L132,246 C130,200 135,150 155,115 C160,105 167,96 175,90 Z" fill="#FFFFFF"/>
+  <path d="M140,175 L160,175 L150,160 Z" fill="#FFFFFF"/>
+</svg>
