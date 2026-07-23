@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_configurator_submission_tree" model="ir.ui.view">
+        <field name="name">website.configurator.submission.tree</field>
+        <field name="model">website.configurator.submission</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="create_date"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_configurator_submission_form" model="ir.ui.view">
+        <field name="name">website.configurator.submission.form</field>
+        <field name="model">website.configurator.submission</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="raw_payload"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_configurator_submission" model="ir.actions.act_window">
+        <field name="name">Configurator Submissions</field>
+        <field name="res_model">website.configurator.submission</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_configurator_root" name="Crate Configurator" sequence="100"/>
+    <menuitem id="menu_configurator_submission" name="Submissions"
+              parent="menu_configurator_root" action="action_configurator_submission" sequence="10"/>
+</odoo>

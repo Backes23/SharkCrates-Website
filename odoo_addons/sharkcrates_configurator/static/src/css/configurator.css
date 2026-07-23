@@ -1,0 +1,40 @@
+/* Minimal styling mirroring the WordPress DriveWorks embed's own CSS
+   conventions, so the "loading" / "complete" / "cancelled" states look
+   reasonable inside the Odoo website theme. */
+
+.dw-shortcode-embed {
+    margin: 2em 0;
+}
+
+.dw-shortcode-embed .dw-embed-message {
+    padding: .5em 1em;
+    background-color: rgba(0, 0, 0, .15);
+    height: inherit;
+}
+
+.dw-shortcode-embed .dw-embed-error {
+    display: inline-block;
+    padding: .5em 1em;
+    border-radius: .25em;
+    background-color: #fee2e2;
+    color: #7f1d1d;
+}
+
+.dw-shortcode-embed .dw-message-form-cancel.message-shown::before,
+.dw-shortcode-embed .dw-message-form-complete.message-shown::before {
+    content: attr(data-message);
+    display: inline-block;
+    padding: .5em 1em;
+    width: auto;
+    border-radius: .25em;
+}
+
+.dw-shortcode-embed .dw-message-form-complete.message-shown::before {
+    background: #d1fae5;
+    color: #047857;
+}
+
+.dw-shortcode-embed .dw-message-form-cancel.message-shown::before {
+    background: #fef3c7;
+    color: #b45309;
+}

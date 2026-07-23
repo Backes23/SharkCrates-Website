@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="configurator_page" name="Crate Configurator">
+        <t t-call="website.layout">
+            <div id="wrap" class="sharkcrates_configurator_page">
+                <div class="container py-5">
+                    <h1 class="mb-4">Custom Design Wood Crate Configurator</h1>
+
+                    <!-- Same DriveWorks Live embed used on the WordPress site's
+                         [driveworks_embed] shortcode: same server_url,
+                         group_alias and project_name. -->
+                    <div data-driveworks-shortcode-embed=""
+                         data-server-url="https://22.dwapi.sharkcrates.com"
+                         data-group-alias="PROD"
+                         data-project-name="Configurator"
+                         data-ping-interval="30"
+                         class="dw-shortcode-embed">
+                        <div data-form-output="" style="height: 700px;">
+                            <div class="dw-embed-loading dw-embed-message">Loading&#8230;</div>
+                        </div>
+                        <div class="dw-message-form-complete" data-message="Thank you for your submission."/>
+                        <div class="dw-message-form-cancel" data-message="This submission has been cancelled."/>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript"
+                    src="https://22.dwapi.sharkcrates.com/DriveWorksLiveIntegrationClient.min.js"/>
+        </t>
+    </template>
+</odoo>
