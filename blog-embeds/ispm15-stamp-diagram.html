@@ -1,0 +1,292 @@
+<!--
+  SharkCrates blog embed: interactive ISPM-15 stamp diagram.
+
+  WHAT THIS IS
+  A self-contained block (HTML + CSS + JS, no external libraries) meant to be
+  pasted into a blog post's "Custom HTML" / "Embed" block on whatever platform
+  hosts the SharkCrates blog. The photo stays completely static — hovering (or
+  tapping, on mobile) a numbered marker on the photo, or its matching title in
+  the legend below, reveals that part's name and description without moving
+  or zooming the image.
+
+  BEFORE PUBLISHING
+  1. Set PHOTO_URL below to the hosted image URL.
+  2. Check marker alignment against the real photo in a browser and nudge the
+     `x` / `y` percentages in the PARTS array if any marker sits off-target.
+     x/y are percentages of the image's width/height, measured from the
+     image's top-left corner.
+  3. If the blog platform strips <script> tags from embeds (e.g. Medium),
+     this widget's interactivity will not work there — confirm the target
+     platform allows custom HTML+JS embeds first.
+-->
+<div class="sc-ispm15-diagram">
+  <style>
+    .sc-ispm15-diagram {
+      --sc-blue: #1772b9;
+      --sc-blue-dark: #125a91;
+      --sc-blue-tint: #eaf3fa;
+      --sc-ink: #142433;
+      --sc-ink-soft: #4a5a68;
+      --sc-border: #d8e6f0;
+      box-sizing: border-box;
+      max-width: 720px;
+      margin: 2rem auto;
+      font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--sc-ink);
+    }
+    .sc-ispm15-diagram *,
+    .sc-ispm15-diagram *::before,
+    .sc-ispm15-diagram *::after {
+      box-sizing: border-box;
+    }
+    .sc-ispm15-diagram__hint {
+      margin: 0 0 0.75rem;
+      font-size: 0.9rem;
+      color: var(--sc-ink-soft);
+      text-align: center;
+    }
+    .sc-ispm15-diagram__photo-wrap {
+      position: relative;
+      width: 100%;
+      line-height: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(20, 36, 51, 0.12);
+    }
+    .sc-ispm15-diagram__photo {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .sc-ispm15-diagram__marker {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      margin: -14px 0 0 -14px;
+      border-radius: 50%;
+      border: none;
+      padding: 0;
+      background: rgba(23, 114, 185, 0.85);
+      color: #fff;
+      font-family: "Ubuntu", "Segoe UI", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      line-height: 28px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85), 0 2px 8px rgba(0, 0, 0, 0.35);
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .sc-ispm15-diagram__marker:hover,
+    .sc-ispm15-diagram__marker:focus-visible,
+    .sc-ispm15-diagram__marker.is-active {
+      background: var(--sc-blue-dark);
+      transform: scale(1.15);
+      outline: none;
+    }
+    .sc-ispm15-diagram__highlight {
+      position: absolute;
+      border: 2px solid var(--sc-blue);
+      background: rgba(23, 114, 185, 0.12);
+      border-radius: 6px;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      pointer-events: none;
+    }
+    .sc-ispm15-diagram__highlight.is-active {
+      opacity: 1;
+    }
+    .sc-ispm15-diagram__detail {
+      margin-top: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--sc-blue-tint);
+      border: 1px solid var(--sc-border);
+      border-radius: 10px;
+      min-height: 5.5rem;
+    }
+    .sc-ispm15-diagram__detail h3 {
+      margin: 0 0 0.35rem;
+      font-family: "Ubuntu", "Segoe UI", system-ui, sans-serif;
+      font-size: 1.05rem;
+      color: var(--sc-blue-dark);
+    }
+    .sc-ispm15-diagram__detail p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--sc-ink-soft);
+    }
+    .sc-ispm15-diagram__legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .sc-ispm15-diagram__legend-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.75rem;
+      border: 1px solid var(--sc-border);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--sc-ink);
+      font-size: 0.85rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+    .sc-ispm15-diagram__legend-btn .sc-ispm15-diagram__legend-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--sc-blue);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex: none;
+    }
+    .sc-ispm15-diagram__legend-btn:hover,
+    .sc-ispm15-diagram__legend-btn:focus-visible,
+    .sc-ispm15-diagram__legend-btn.is-active {
+      background: var(--sc-blue);
+      border-color: var(--sc-blue);
+      color: #fff;
+      outline: none;
+    }
+    .sc-ispm15-diagram__legend-btn:hover .sc-ispm15-diagram__legend-num,
+    .sc-ispm15-diagram__legend-btn:focus-visible .sc-ispm15-diagram__legend-num,
+    .sc-ispm15-diagram__legend-btn.is-active .sc-ispm15-diagram__legend-num {
+      background: #fff;
+      color: var(--sc-blue-dark);
+    }
+  </style>
+
+  <p class="sc-ispm15-diagram__hint">Hover or tap a marker on the stamp — or a label below — to see what it means.</p>
+
+  <div class="sc-ispm15-diagram__photo-wrap">
+    <img
+      class="sc-ispm15-diagram__photo"
+      src="https://portal.sharkcrates.com/web/image/75395-33ad200c/ISPM%20%281%20of%201%29.webp?access_token=5c1707c7-e613-47a5-83cb-cc4644038632"
+      alt="Close-up of an ISPM-15 heat treatment stamp on a wood shipping crate board, reading IPPC, US-169251, HT, audited by TP"
+    />
+    <!-- Markers and highlight boxes are injected by the script below from the PARTS array. -->
+  </div>
+
+  <div class="sc-ispm15-diagram__detail" data-sc-detail>
+    <h3 data-sc-detail-title>What's in the stamp?</h3>
+    <p data-sc-detail-text>Hover or tap any numbered marker to learn what that part of the ISPM-15 stamp certifies.</p>
+  </div>
+
+  <ul class="sc-ispm15-diagram__legend" data-sc-legend></ul>
+
+  <script>
+    (function () {
+      var PARTS = [
+        {
+          id: "ippc",
+          title: "IPPC Symbol",
+          description: "The stylized wheat logo on the left. This is the internationally recognized mark certifying the wood was treated to ISPM-15 standard. No symbol, no compliance.",
+          x: 30.5, y: 54,
+          boxLeft: 25, boxTop: 33, boxWidth: 11, boxHeight: 42
+        },
+        {
+          id: "country-code",
+          title: "Country Code — US",
+          description: "A two-letter ISO code for the country where treatment took place. Ours reads US for the United States.",
+          x: 46, y: 40,
+          boxLeft: 36, boxTop: 33, boxWidth: 23, boxHeight: 14
+        },
+        {
+          id: "facility-number",
+          title: "Facility Number — 169251",
+          description: "A unique ID that traces the packaging back to the certified facility that treated and marked it. Ours breaks down as region code 16 plus our producer number 9251, issued through the American Lumber Standard Committee (ALSC), the U.S. accrediting body.",
+          x: 46, y: 55,
+          boxLeft: 36, boxTop: 47, boxWidth: 23, boxHeight: 14
+        },
+        {
+          id: "treatment-code",
+          title: "Treatment Code — HT",
+          description: "The method used. HT for heat treatment, DH for dielectric heating, MB for methyl bromide. Ours reads HT.",
+          x: 46, y: 70,
+          boxLeft: 36, boxTop: 61, boxWidth: 23, boxHeight: 14
+        },
+        {
+          id: "certifying-agency",
+          title: "Certifying Agency — Audited by TP",
+          description: "Identifies the accredited inspection agency that audits the facility. Ours is Timber Products Inspection (TP).",
+          x: 71, y: 54,
+          boxLeft: 61, boxTop: 33, boxWidth: 22, boxHeight: 42
+        }
+      ];
+
+      var roots = document.querySelectorAll(".sc-ispm15-diagram");
+
+      roots.forEach(function (root) {
+        var photoWrap = root.querySelector(".sc-ispm15-diagram__photo-wrap");
+        var legend = root.querySelector("[data-sc-legend]");
+        var detailTitle = root.querySelector("[data-sc-detail-title]");
+        var detailText = root.querySelector("[data-sc-detail-text]");
+
+        var markers = [];
+        var highlights = [];
+        var legendBtns = [];
+
+        PARTS.forEach(function (part, index) {
+          var marker = document.createElement("button");
+          marker.type = "button";
+          marker.className = "sc-ispm15-diagram__marker";
+          marker.style.left = part.x + "%";
+          marker.style.top = part.y + "%";
+          marker.textContent = String(index + 1);
+          marker.setAttribute("aria-label", part.title);
+          photoWrap.appendChild(marker);
+          markers.push(marker);
+
+          var highlight = document.createElement("div");
+          highlight.className = "sc-ispm15-diagram__highlight";
+          highlight.style.left = part.boxLeft + "%";
+          highlight.style.top = part.boxTop + "%";
+          highlight.style.width = part.boxWidth + "%";
+          highlight.style.height = part.boxHeight + "%";
+          photoWrap.appendChild(highlight);
+          highlights.push(highlight);
+
+          var legendItem = document.createElement("li");
+          var legendBtn = document.createElement("button");
+          legendBtn.type = "button";
+          legendBtn.className = "sc-ispm15-diagram__legend-btn";
+          legendBtn.innerHTML =
+            '<span class="sc-ispm15-diagram__legend-num">' + (index + 1) + "</span>" +
+            "<span>" + part.title + "</span>";
+          legendItem.appendChild(legendBtn);
+          legend.appendChild(legendItem);
+          legendBtns.push(legendBtn);
+
+          function activate() {
+            markers.forEach(function (m) { m.classList.remove("is-active"); });
+            highlights.forEach(function (h) { h.classList.remove("is-active"); });
+            legendBtns.forEach(function (b) { b.classList.remove("is-active"); });
+            marker.classList.add("is-active");
+            highlight.classList.add("is-active");
+            legendBtn.classList.add("is-active");
+            detailTitle.textContent = part.title;
+            detailText.textContent = part.description;
+          }
+
+          marker.addEventListener("mouseenter", activate);
+          marker.addEventListener("focus", activate);
+          marker.addEventListener("click", activate);
+          legendBtn.addEventListener("mouseenter", activate);
+          legendBtn.addEventListener("focus", activate);
+          legendBtn.addEventListener("click", activate);
+        });
+      });
+    })();
+  </script>
+</div>
