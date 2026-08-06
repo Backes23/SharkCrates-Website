@@ -44,19 +44,13 @@
     .sc-ispm15-diagram *::after {
       box-sizing: border-box;
     }
-    .sc-ispm15-diagram__hint {
-      margin: 0 0 0.75rem;
-      font-size: 0.9rem;
-      color: var(--sc-ink-soft);
-      text-align: center;
-    }
     .sc-ispm15-diagram__photo-wrap {
       position: relative;
       width: 100%;
       /* Crops the frame down around the stamp (see CROP note in the script below).
          Tune this ratio to change how much top/bottom is cropped; it does not
          distort the photo, only how much of it is visible. */
-      aspect-ratio: 1.6 / 1;
+      aspect-ratio: 1.84 / 1;
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 12px 30px rgba(20, 36, 51, 0.12);
@@ -71,7 +65,7 @@
       height: auto;
       /* Pans the zoomed photo so the stamp's center sits in the frame's center.
          Must stay in sync with the CROP constants in the script below. */
-      transform: translate(-53%, -51%);
+      transform: translate(-53%, -52.5%);
     }
     .sc-ispm15-diagram__marker {
       position: absolute;
@@ -182,8 +176,6 @@
     }
   </style>
 
-  <p class="sc-ispm15-diagram__hint">Hover or tap a marker on the stamp — or a label below — to see what it means.</p>
-
   <div class="sc-ispm15-diagram__photo-wrap">
     <img
       class="sc-ispm15-diagram__photo"
@@ -213,36 +205,36 @@
           id: "ippc",
           title: "IPPC Symbol",
           description: "The stylized wheat logo on the left. This is the internationally recognized mark certifying the wood was treated to ISPM-15 standard. No symbol, no compliance.",
-          x: 17.9, y: 54.6,
-          boxLeft: 10.0, boxTop: 22.7, boxWidth: 15.7, boxHeight: 63.6
+          x: 17.9, y: 52.6,
+          boxLeft: 10.0, boxTop: 15.8, boxWidth: 15.7, boxHeight: 73.7
         },
         {
           id: "country-code",
           title: "Country Code — US",
           description: "A two-letter ISO code for the country where treatment took place. Ours reads US for the United States.",
-          x: 40.0, y: 33.3,
-          boxLeft: 25.7, boxTop: 22.7, boxWidth: 32.9, boxHeight: 21.2
+          x: 40.0, y: 28.1,
+          boxLeft: 25.7, boxTop: 15.8, boxWidth: 32.9, boxHeight: 24.6
         },
         {
           id: "facility-number",
           title: "Facility Number — 169251",
           description: "A unique ID that traces the packaging back to the certified facility that treated and marked it. Ours breaks down as region code 16 plus our producer number 9251, issued through the American Lumber Standard Committee (ALSC), the U.S. accrediting body.",
-          x: 40.0, y: 56.1,
-          boxLeft: 25.7, boxTop: 43.9, boxWidth: 32.9, boxHeight: 21.2
+          x: 40.0, y: 54.4,
+          boxLeft: 25.7, boxTop: 40.4, boxWidth: 32.9, boxHeight: 24.6
         },
         {
           id: "treatment-code",
           title: "Treatment Code — HT",
           description: "The method used. HT for heat treatment, DH for dielectric heating, MB for methyl bromide. Ours reads HT.",
-          x: 40.0, y: 78.8,
-          boxLeft: 25.7, boxTop: 65.2, boxWidth: 32.9, boxHeight: 21.2
+          x: 40.0, y: 80.7,
+          boxLeft: 25.7, boxTop: 64.9, boxWidth: 32.9, boxHeight: 24.6
         },
         {
           id: "certifying-agency",
           title: "Certifying Agency — Audited by TP",
           description: "Identifies the accredited inspection agency that audits the facility. Ours is Timber Products Inspection (TP).",
-          x: 75.7, y: 54.6,
-          boxLeft: 61.4, boxTop: 22.7, boxWidth: 31.4, boxHeight: 63.6
+          x: 75.7, y: 52.6,
+          boxLeft: 61.4, boxTop: 15.8, boxWidth: 31.4, boxHeight: 73.7
         }
       ];
 
