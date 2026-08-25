@@ -247,7 +247,6 @@ h2 {
 /* Quick nav */
 
 .quick-nav {
-  border-bottom: 1px solid var(--border);
   background: var(--white);
 }
 
