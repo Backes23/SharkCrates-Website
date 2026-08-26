@@ -319,14 +319,12 @@ h2 {
   display: block;
   overflow: hidden;
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.15s ease;
 }
 
 .shop-panel:hover,
 .shop-panel:focus-visible {
   transform: translateY(-4px);
-  box-shadow: 0 16px 34px rgba(20, 36, 51, 0.18);
 }
 
 .shop-panel img {
