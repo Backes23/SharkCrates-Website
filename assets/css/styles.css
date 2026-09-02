@@ -248,6 +248,9 @@ h2 {
 
 .quick-nav {
   background: var(--white);
+  position: sticky;
+  top: 76px; /* matches .site-header height, which is also sticky above this */
+  z-index: 40;
 }
 
 .quick-nav-inner {
